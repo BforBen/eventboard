@@ -6,7 +6,7 @@ const got = require('got');
 const moment = require('moment');
 const app = module.exports = new Koa();
 
-const eventbriteToken = 'RARSEGFMQAXJDBHHZFEC';
+const eventbriteToken = process.env.EVENTBRITE_API_KEY;
 
 const eventsUrl = 'https://www.eventbriteapi.com/v3/users/me/events/?order_by=start_asc&time_filter=current_future&token=' + eventbriteToken;
 const eventDetailsUrl = 'https://www.eventbriteapi.com/v3/events/{{eventId}}/?expand=ticket_availability,ticket_classes&token=' + eventbriteToken;
@@ -19,31 +19,33 @@ app.use(serve(path.join(__dirname, '/public')));
 
 app.use(async function(ctx) {
 
-  const events = [];
-
-  const eventRequest = await got(eventsUrl);
-  const eventData = JSON.parse(eventRequest.body);
-
-  for (const e of eventData.events) {
-
-    const eventDetailRequest = await got( eventDetailsUrl.replace("{{eventId}}", e.id) );
-    const eventDetail = JSON.parse(eventDetailRequest.body);
-    
-    const eventDate = moment(e.start.local);
-
-    events.push({
-      "id": e.id,
-      "title": e.name.text,
-      "url": e.url,
-      "date": eventDate.format('ddd do MMM'),
-      "fromNow": eventDate.fromNow(),
-      "capacity": e.capacity,
-      "sold_out": eventDetail.ticket_availability.is_sold_out,
-      //"tickets": []
-    });
-  };
+  if (ctx.path === '/') {
+    const events = [];
   
-  await ctx.render('events', { events });
+    const eventRequest = await got(eventsUrl);
+    const eventData = JSON.parse(eventRequest.body);
+  
+    for (const e of eventData.events) {
+  
+      const eventDetailRequest = await got( eventDetailsUrl.replace("{{eventId}}", e.id) );
+      const eventDetail = JSON.parse(eventDetailRequest.body);
+      
+      const eventDate = moment(e.start.local);
+  
+      events.push({
+        "id": e.id,
+        "title": e.name.text,
+        "url": e.url,
+        "date": eventDate.format('ddd do MMM'),
+        "fromNow": eventDate.fromNow(),
+        "capacity": e.capacity,
+        "sold_out": eventDetail.ticket_availability.is_sold_out,
+        //"tickets": []
+      });
+    };
+    
+    await ctx.render('events', { events });
+  }
 });
 
 if (!module.parent) app.listen(process.env.PORT);
@@ -82,4 +84,3 @@ if (!module.parent) app.listen(process.env.PORT);
             "event_id": "52670982326", 
             "id": "98161077"
         }*/
-
