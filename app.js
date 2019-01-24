@@ -31,6 +31,21 @@ app.use(async function(ctx) {
       const eventDetail = JSON.parse(eventDetailRequest.body);
       
       const eventDate = moment(e.start.local);
+      
+      const eventTickets = [];
+      
+      var sold = 0;
+      
+      for (const c of eventDetail.ticket_classes) {
+        
+        sold = sold + c.quantity_sold;
+        
+        eventTickets.push({
+          "class": c.name,
+          "total": c.quantity_total,
+          "sold": c.quantity_sold
+        });
+      }
   
       events.push({
         "id": e.id,
@@ -39,8 +54,9 @@ app.use(async function(ctx) {
         "date": eventDate.format('ddd do MMM'),
         "fromNow": eventDate.fromNow(),
         "capacity": e.capacity,
+        "sold": sold,
         "sold_out": eventDetail.ticket_availability.is_sold_out,
-        //"tickets": []
+        "tickets": eventTickets
       });
     };
     
@@ -49,38 +65,3 @@ app.use(async function(ctx) {
 });
 
 if (!module.parent) app.listen(process.env.PORT);
-
-/*"ticket_classes": [
-        {
-            "resource_uri": "https://www.eventbriteapi.com/v3/events/52670982326/ticket_classes/98161077/", 
-            "variant_id": null, 
-            "name": "Local authority staff/ councilor", 
-            "description": null, 
-            "donation": false, 
-            "free": true, 
-            "minimum_quantity": 1, 
-            "maximum_quantity": null, 
-            "maximum_quantity_per_order": 10, 
-            "maximum_quantity_per_order_without_pending": null, 
-            "on_sale_status": "AVAILABLE", 
-            "quantity_total": 60, 
-            "quantity_sold": 20, 
-            "sales_start": "2018-11-15T07:50:00Z", 
-            "sales_end": "2019-02-20T09:00:00Z", 
-            "hidden": false, 
-            "include_fee": false, 
-            "split_fee": false, 
-            "hide_description": true, 
-            "auto_hide": false, 
-            "variants": [], 
-            "has_pdf_ticket": true, 
-            "sales_channels": [
-                "online", 
-                "atd"
-            ], 
-            "delivery_methods": [
-                "electronic"
-            ], 
-            "event_id": "52670982326", 
-            "id": "98161077"
-        }*/

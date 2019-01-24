@@ -18,12 +18,11 @@
 <body class="govuk-template__body ">
   <script>
     document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-
   </script>
-  
+
   <div class="govuk-width-container">
     <main class="govuk-main-wrapper " id="main-content" role="main">
-  
+
     <table class="govuk-table">
         <!-- caption class="govuk-table__caption">Dates and amounts</caption -->
         <thead class="govuk-table__head">
@@ -40,19 +39,17 @@
             <tr class="govuk-table__row">
                 <th class="govuk-table__header" scope="row"><a href="<%= e.url %>"><%= e.title %></a></th>
                 <td class="govuk-table__cell" title="<%= e.date %>"><%= e.fromNow %></td>
-                <td class="govuk-table__cell govuk-table__cell--numeric"><%= e.sold_out %></td>
+                <td class="govuk-table__cell govuk-table__cell--numeric"><%= e.sold %></td>
                 <td class="govuk-table__cell govuk-table__cell--numeric"><%= e.capacity %></td>
             </tr>
         <% }); %>
-        
-        
+
         </tbody>
     </table>
-    
 
     </main>
   </div>
-    
+
     <script src="/js/govuk-frontend-2.5.1.min.js"></script>
     <script>window.GOVUKFrontend.initAll()</script>
 </body>
