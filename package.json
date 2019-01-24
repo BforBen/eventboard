@@ -1,0 +1,27 @@
+{
+  "name": "eventboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BforBen/eventboard.git"
+  },
+  "author": "Ben Cheetham",
+  "license": "AGPL3",
+  "bugs": {
+    "url": "https://github.com/BforBen/eventboard/issues"
+  },
+  "homepage": "https://github.com/BforBen/eventboard#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "got": "^9.6.0",
+    "koa": "^2.6.2",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.5",
+    "moment": "^2.24.0"
+  }
+}

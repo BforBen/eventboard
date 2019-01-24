@@ -1,0 +1,59 @@
+<html lang="en" class="govuk-template ">
+<head>
+  <meta charset="utf-8">
+  <title>Events</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0c0c">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="/style/govuk-frontend-2.5.1.min.css">
+
+  <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="/assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/govuk-apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="/assets/images/govuk-apple-touch-icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/govuk-apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" href="/assets/images/govuk-apple-touch-icon.png">
+  
+</head>
+<body class="govuk-template__body ">
+  <script>
+    document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+
+  </script>
+  
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper " id="main-content" role="main">
+  
+    <table class="govuk-table">
+        <!-- caption class="govuk-table__caption">Dates and amounts</caption -->
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header" scope="col">Event</th>
+                <th class="govuk-table__header" scope="col">Date</th>
+                <th class="govuk-table__header govuk-table__header--numeric" scope="col">Sold</th>
+                <th class="govuk-table__header govuk-table__header--numeric" scope="col">Capacity</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+
+        <% events.forEach(function(e) { %>
+            <tr class="govuk-table__row">
+                <th class="govuk-table__header" scope="row"><%= e.title %></th>
+                <td class="govuk-table__cell" title="<%= e.date %>"><%= e.fromNow %></td>
+                <td class="govuk-table__cell govuk-table__cell--numeric"><%= e.sold_out %></td>
+                <td class="govuk-table__cell govuk-table__cell--numeric"><%= e.capacity %></td>
+            </tr>
+        <% }); %>
+        
+        
+        </tbody>
+    </table>
+    
+
+    </main>
+  </div>
+    
+    <script src="/js/govuk-frontend-2.5.1.min.js"></script>
+    <script>window.GOVUKFrontend.initAll()</script>
+</body>
+</html>
