@@ -37,7 +37,7 @@
 
         <% events.forEach(function(e) { %>
             <tr class="govuk-table__row">
-                <th class="govuk-table__header" scope="row"><a href="<%= e.url %>"><%= e.title %></a></th>
+                <th class="govuk-table__header" scope="row"><a href="<%= e.url %>" target="_blank" title="View Eventbrite page for <%= e.title %>"><%= e.title %></a></th>
                 <td class="govuk-table__cell" title="<%= e.date %>"><%= e.fromNow %></td>
                 <td class="govuk-table__cell govuk-table__cell--numeric"><%= e.sold %></td>
                 <td class="govuk-table__cell govuk-table__cell--numeric"><%= e.capacity %></td>
