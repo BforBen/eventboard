@@ -6,9 +6,10 @@ const got = require('got');
 const moment = require('moment');
 const app = module.exports = new Koa();
 
-const eventbriteToken = process.env.EVENTBRITE_API_KEY;
+const eventbriteToken = process.env.EVENTBRITE_API_KEY || '';
+const eventbriteOrgId = process.env.EVENTBRITE_ORG_ID || '';
 
-const eventsUrl = 'https://www.eventbriteapi.com/v3/users/me/events/?order_by=start_asc&time_filter=current_future&token=' + eventbriteToken;
+const eventsUrl = 'https://www.eventbriteapi.com/v3/organizations/' + eventbriteOrgId + '/events/?order_by=start_asc&time_filter=current_future&token=' + eventbriteToken;
 const eventDetailsUrl = 'https://www.eventbriteapi.com/v3/events/{{eventId}}/?expand=ticket_availability,ticket_classes&token=' + eventbriteToken;
 
 // Init views
@@ -64,4 +65,4 @@ app.use(async function(ctx) {
   }
 });
 
-if (!module.parent) app.listen(process.env.PORT);
+if (!module.parent) app.listen(process.env.PORT || 3000);
